@@ -45,7 +45,7 @@ def outputJSON(indeed_posts, driver, category):
 
 def searchJobs(job_title: str):    
 
-    print("Now searching for jobs matching \"" + job_title + ".\" Please wait.")
+    print("Now searching for jobs matching \"" + job_title + "\". Please wait.")
 
     headless = False
 

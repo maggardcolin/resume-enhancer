@@ -18,12 +18,13 @@ def process_data(file_path):
 
     for field in data:
         processed_text = remove_stop_words(field)
-        accepted_words.append(processed_text)
+        if processed_text:
+            accepted_words.append(processed_text)
 
     # get current time and add to json file name
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
-    with open(f"filtered{current_date_time}.json", 'w') as file:
+    with open(f"./output/filtered{current_date_time}.json", 'w') as file:
         json.dump(accepted_words, file, indent=4)
 
 # Function to remove stop words
