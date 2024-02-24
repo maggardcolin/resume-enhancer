@@ -5,13 +5,18 @@ class Experience:
         self.location = location
         self.duration = duration
         self.description = description.split(delimiter)
-    def getCompany(self):
+
+    def get_company(self):
         return self.company
-    def getRole(self):
+
+    def get_role(self):
         return self.role_title
-    def getLocation(self):
+
+    def get_location(self):
         return self.location
-    def getDuration(self):
+
+    def get_duration(self):
         return self.duration
-    def getDescription(self):
+
+    def get_description(self):
         return self.description

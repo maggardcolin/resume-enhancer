@@ -3,9 +3,12 @@ class Project:
         self.name = name
         self.languages = languages_used
         self.description = description.split(delimiter)
-    def getName(self):
+
+    def get_name(self):
         return self.name
-    def getLanguage(self):
+
+    def get_language(self):
         return self.languages
-    def getDescription(self):
+
+    def get_description(self):
         return self.description

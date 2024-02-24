@@ -1,14 +1,18 @@
-class Activities:
+class Activity:
     def __init__(self, organization, location, role_title, description, delimiter):
         self.organization = organization
         self.location = location
         self.role_title = role_title.split(delimiter)
         self.description = description.split(delimiter)
-    def getOrganization(self):
+
+    def get_organization(self):
         return self.organization
-    def getLocation(self):
+
+    def get_location(self):
         return self.location
-    def getRole(self):
+
+    def get_role(self):
         return self.role_title
-    def getDescription(self):
+
+    def get_description(self):
         return self.description

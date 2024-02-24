@@ -1,28 +1,39 @@
-from ResumeObjects import Activity
-from ResumeObjects import Experience
-from ResumeObjects import Projects
-activities = []
-experiences = []
-educations = []
-projects = []
-skills = ""
-def addEducation(degree, date, location, gpa, description, delimiter):
-    pass
+from ResumeObjects import Activity, Education, Experience, Projects
+from docx import Document
 
-def addActivity(organization, location, role_title, description , delimiter):
-    a1 = Activity(organization, location, role_title, description, delimiter)
-    activities.append(a1)
 
-def addExperience(company, role_title, location, duration, description, delimiter):
-    e1 = Experience(company, role_title, location, duration, description, delimiter)
-    experiences.append(e1)
+class Resume:
+    def __init__(self):
+        self.activities = []
+        self.experiences = []
+        self.educations = []
+        self.projects = []
+        self.skills = ""
 
-def addProject(name, languages_used, description, delimiter):
-    p1 = Projects(name, languages_used, description, delimiter)
-    projects.append(p1)
+    def add_education(self, degree, date, location, gpa, description, delimiter):
+        pass
 
-def addSkills(skill):
-    skills += skill
-    
-def compileResume():
-    print("ble")
+    def add_activity(self, organization, location, role_title, description, delimiter):
+        a1 = Activity(organization, location, role_title, description, delimiter)
+        self.activities.append(a1)
+
+    def add_experience(self, company, role_title, location, duration, description, delimiter):
+        e1 = Experience(company, role_title, location, duration, description, delimiter)
+        self.experiences.append(e1)
+
+    def add_project(self, name, languages_used, description, delimiter):
+        p1 = Projects(name, languages_used, description, delimiter)
+        self.projects.append(p1)
+
+    def add_skills(self, skill):
+        self.skills = self.skills + ", " + skill
+
+    def compile_resume(self, bwah):
+        doc = Document()
+        p = doc.add_paragraph("test")
+        doc.save("test.docx")
+
+
+if __name__ == '__main__':
+    res = Resume()
+    res.compile_resume("bwah")
