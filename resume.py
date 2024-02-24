@@ -1,0 +1,3 @@
+activities = []
+educations = []
+projects = []
