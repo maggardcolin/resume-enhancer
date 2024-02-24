@@ -40,6 +40,6 @@ def write_output(keyword_counts):
     # get current time and add to json file name
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
-    with open(f"parsed{current_date_time}.json", 'w') as file:
+    with open(f"./output/parsed{current_date_time}.json", 'w') as file:
         json.dump(output_data, file, indent=4)
-    process_data(f"parsed{current_date_time}.json")
+    process_data(f"./output/parsed{current_date_time}.json")

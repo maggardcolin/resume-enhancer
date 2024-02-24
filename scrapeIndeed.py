@@ -39,11 +39,13 @@ def outputJSON(indeed_posts, driver, category):
     # get current time and add to json file
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
-    with open(f"{category}{current_date_time}.json", 'w') as file:
+    with open(f"./output/{category}{current_date_time}.json", 'w') as file:
         json.dump(output, file, indent=4)
-    process_json(f"{category}{current_date_time}.json")
+    process_json(f"./output/{category}{current_date_time}.json")
 
 def searchJobs(job_title: str):    
+
+    print("Now searching for jobs matching \"" + job_title + ".\" Please wait.")
 
     headless = False
 
@@ -65,6 +67,7 @@ def searchJobs(job_title: str):
         
         indeed_posts = []
         for card in job_cards:
+
             # Extracting job title, company name, and link to the job posting
             try:
                 job_title_element = card.find_element(By.CSS_SELECTOR, 'span').text

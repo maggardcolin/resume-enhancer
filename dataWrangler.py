@@ -2,12 +2,14 @@
 # processing, finding top keywords
 # output - processed even more json file
 
-import json
+import json, nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from datetime import datetime
 
 def process_data(file_path):
+    nltk.download('stopwords')
+    nltk.download('punkt') 
 
     with open(file_path, 'r') as file:
         data = json.load(file)
