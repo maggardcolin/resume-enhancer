@@ -29,4 +29,10 @@ class Resume:
 
     def compileResume(self):
         doc = Document()
-            
+        p = doc.add_paragraph("test")
+        p
+        doc.save("test.docx")
+
+if __name__ == '__main__':
+    res = Resume()
+    res.compileResume()
