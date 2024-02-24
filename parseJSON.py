@@ -6,6 +6,7 @@ import json
 import re
 from collections import defaultdict
 from datetime import datetime
+from dataWrangler import *
 
 # remove extra spaces, newlines and convert to lower case.
 def clean_text(text):
@@ -41,3 +42,4 @@ def write_output(keyword_counts):
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
     with open(f"parsed{current_date_time}.json", 'w') as file:
         json.dump(output_data, file, indent=4)
+    process_data(f"parsed{current_date_time}.json")

@@ -9,8 +9,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from datetime import datetime
 from parseJSON import *
 
-headless = False
-
 def outputJSON(indeed_posts, driver, category):
     output = []
 
@@ -42,10 +40,12 @@ def outputJSON(indeed_posts, driver, category):
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
     with open(f"{category}{current_date_time}.json", 'w') as file:
-        json.dump(output, file, indent=4) 
+        json.dump(output, file, indent=4)
     process_json(f"{category}{current_date_time}.json")
 
 def searchJobs(job_title: str):    
+
+    headless = False
 
     if headless:
         chrome_options = Options()
