@@ -7,9 +7,6 @@ import re
 from collections import defaultdict
 from datetime import datetime
 
-# List of software development related keywords
-keywords = ['python', 'java', 'c++', 'sql', 'javascript', 'linux', 'git', 'docker', 'agile', 'scrum']
-
 # remove extra spaces, newlines and convert to lower case.
 def clean_text(text):
     return re.sub(r'\s+', ' ', text).strip().lower()
@@ -28,15 +25,17 @@ def process_json(file_path):
         fields = [job.get('job_title', ''), job.get('description', '')]
         cleaned_text = ' '.join(clean_text(field) for field in fields)
         
-        # Count the occurrences of each keyword
+        # Count the occurrences of each keyword, split by whitespace, commas, parentheses, etc
+        keywords = re.split(r'\W+', cleaned_text)
         for keyword in keywords:
-            keyword_counts[keyword] += cleaned_text.count(keyword)
+            if keyword:
+                keyword_counts[keyword] += 1
 
     write_output(keyword_counts)
 
 #write keyword counts to a json file
 def write_output(keyword_counts):
-    output_data = dict(keyword_counts)
+    output_data = dict(sorted(keyword_counts.items(), key=lambda item: item[1], reverse=True))
     # get current time and add to json file name
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")

@@ -82,5 +82,3 @@ def searchJobs(job_title: str):
         print("Timeout while waiting for job postings to load.")
     finally:
         driver.quit()
-
-searchJobs("software engineer")
