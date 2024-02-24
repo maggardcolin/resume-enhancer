@@ -2,7 +2,7 @@
 # processing, finding top keywords
 # output - processed even more json file
 
-import json, nltk
+import json, nltk, os
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from datetime import datetime
@@ -23,9 +23,10 @@ def process_data(file_path):
 
     # get current time and add to json file name
     now = datetime.now()
-    current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
-    with open(f"./output/filtered{current_date_time}.json", 'w') as file:
+    current_date_time = now.strftime("%m-%d-%Y-%H-%M-%S")
+    with open(f"./output/keyword_output_{current_date_time}.json", 'w') as file:
         json.dump(accepted_words, file, indent = 4)
+    os.remove(file_path)
 
 # Function to remove stop words
 def remove_stop_words(text):

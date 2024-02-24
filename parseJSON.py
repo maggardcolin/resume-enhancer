@@ -2,8 +2,7 @@
 #processing - count each occurrence of word, not case sensitive (not including field names)
 #output json file with each word getting its own field and having a value equal to its frequency
 
-import json
-import re
+import json, re, os
 from collections import defaultdict
 from datetime import datetime
 from dataWrangler import *
@@ -33,6 +32,7 @@ def process_json(file_path):
                 keyword_counts[keyword] += 1
 
     write_output(keyword_counts)
+    os.remove(file_path)
 
 # write keyword counts to a json file
 def write_output(keyword_counts):
