@@ -33,12 +33,16 @@ clearly communicates the purpose of your resume): ")
 
 #prompts for the education section
 #prompt for college
-college = input("Please enter your college/university name: ")
-#prompt for degree
-degree = input("Please enter your degree or degrees as it would appear in a transcript: ")
-#prompt for expected grad month/year
-grad = input("Please enter your expected graduation date (e.g. 'May 2026'): ")
-#prompt for gpa
-gpa = input("Please enter your GPA (e.g '3.90/4.00'): ")
+educnt = input("Please enter the number of educations you would like to list (integer): ")
+for i in range(educnt):
+    college = input("Please enter your college/university name: ")
+    #prompt for degree
+    degree = input("Please enter your degree or degrees as it would appear in a transcript: ")
+    #prompt for expected grad month/year
+    grad = input("Please enter your expected graduation date (e.g. 'May 2026'): ")
+    #prompt for gpa
+    gpa = input("Please enter your GPA (e.g '3.90/4.00'): ")
+    #prompt for description
+    description = input("Please enter your description using commas to separate your bullet points: ")
 
 
