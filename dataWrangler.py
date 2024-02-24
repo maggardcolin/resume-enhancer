@@ -25,7 +25,7 @@ def process_data(file_path):
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
     with open(f"./output/filtered{current_date_time}.json", 'w') as file:
-        json.dump(accepted_words, file, indent=4)
+        json.dump(accepted_words, file, indent = 4)
 
 # Function to remove stop words
 def remove_stop_words(text):

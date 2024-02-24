@@ -34,9 +34,9 @@ def process_json(file_path):
 
     write_output(keyword_counts)
 
-#write keyword counts to a json file
+# write keyword counts to a json file
 def write_output(keyword_counts):
-    output_data = dict(sorted(keyword_counts.items(), key=lambda item: item[1], reverse=True))
+    output_data = dict(sorted(keyword_counts.items(), key = lambda item: item[1], reverse = True))
     # get current time and add to json file name
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
