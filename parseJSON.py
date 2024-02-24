@@ -12,7 +12,7 @@ def clean_text(text):
     return re.sub(r'\s+', ' ', text).strip().lower()
 
 # processes json file made by the scraper
-def process_json(file_path):
+def process_json(file_path, category):
     with open(file_path, 'r', encoding='utf-8') as file:
         jobs = json.load(file)
     
@@ -31,15 +31,15 @@ def process_json(file_path):
             if keyword:
                 keyword_counts[keyword] += 1
 
-    write_output(keyword_counts)
+    write_output(keyword_counts, category)
     os.remove(file_path)
 
 # write keyword counts to a json file
-def write_output(keyword_counts):
+def write_output(keyword_counts, category):
     output_data = dict(sorted(keyword_counts.items(), key = lambda item: item[1], reverse = True))
     # get current time and add to json file name
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
     with open(f"./output/parsed{current_date_time}.json", 'w') as file:
         json.dump(output_data, file, indent=4)
-    process_data(f"./output/parsed{current_date_time}.json")
+    process_data(f"./output/parsed{current_date_time}.json", category)

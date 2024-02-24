@@ -41,7 +41,7 @@ def outputJSON(indeed_posts, driver, category):
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
     with open(f"./output/{category}{current_date_time}.json", 'w') as file:
         json.dump(output, file, indent=4)
-    process_json(f"./output/{category}{current_date_time}.json")
+    process_json(f"./output/{category}{current_date_time}.json", category)
 
 def searchJobs(job_title: str):    
 
@@ -62,7 +62,7 @@ def searchJobs(job_title: str):
     wait = WebDriverWait(driver, 10)
 
     try:
-        wait.until(EC.presence_of_element_located((By.ID, 'mosaic-provider-jobcards')))
+        wait.until(EC.visibility_of_element_located((By.ID, 'mosaic-provider-jobcards')))
         job_cards = driver.find_elements(By.CLASS_NAME, 'css-5lfssm')
         
         indeed_posts = []
