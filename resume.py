@@ -3,9 +3,20 @@ from docx import Document
 
 
 class Resume:
-    def __init__(self, name, contact, objective):
+    def __init__(self, name, city, state, email, number, objective, links):
+        #string
         self.name = name
-        self.contact = contact
+        #string
+        self.email = email
+        #string
+        self.number = number
+        #list of strings
+        self.links = links
+        #strings
+        self.city = city
+        #strings
+        self.state = state
+        #strings
         self.objective = objective
         self.activities = []
         self.experiences = []

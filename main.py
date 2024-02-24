@@ -1,3 +1,4 @@
+import resume
 links = []
 college = ""
 degree = ""
@@ -36,6 +37,8 @@ clearly communicates the purpose of your resume): ")
 educnt = input("Please enter the number of educations you would like to list (integer): ")
 for i in range(educnt):
     college = input("Please enter your college/university name: ")
+    #prompt for location
+    college_location = input("Please enter your city and state (e.g 'Madison, WI): ")
     #prompt for degree
     degree = input("Please enter your degree or degrees as it would appear in a transcript: ")
     #prompt for expected grad month/year
@@ -43,6 +46,8 @@ for i in range(educnt):
     #prompt for gpa
     gpa = input("Please enter your GPA (e.g '3.90/4.00'): ")
     #prompt for description
-    description = input("Please enter your description using commas to separate your bullet points: ")
+    description = input("Please enter your description using commas to separate the bullet points: ")
+
+    resume.add_education(degree, grad, college_location, gpa, description, ",")
 
 
