@@ -6,17 +6,18 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
+from datetime import datetime
 
 headless = False
 
-def outputJSON(indeed_posts, driver):
+def outputJSON(indeed_posts, driver, category):
     output = []
 
     for post in indeed_posts:
         job_title = post['job_title']
-        print(job_title)
+        #print(job_title)
         link = post["link"]
-        print(link)
+        #print(link)
         driver.get(link)
         wait = WebDriverWait(driver, 10)
         wait.until(EC.presence_of_element_located((By.ID, 'jobDescriptionText')))
@@ -36,7 +37,10 @@ def outputJSON(indeed_posts, driver):
 
         output.append({'job_title': job_title, 'description': description})
 
-    with open('output.json', 'w') as file:
+    # get current time and add to json file
+    now = datetime.now()
+    current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
+    with open(f"{category}{current_date_time}.json", 'w') as file:
         json.dump(output, file, indent=4) 
 
 def searchJobs(job_title: str):    
@@ -71,10 +75,10 @@ def searchJobs(job_title: str):
             
             indeed_posts.append({'job_title': job_title_element, 'link': link})
         
-        outputJSON(indeed_posts, driver)
+        outputJSON(indeed_posts, driver, job_title)
     except TimeoutException:
         print("Timeout while waiting for job postings to load.")
     finally:
         driver.quit()
 
-searchJobs("software engineer")
+searchJobs("mechanical engineer")
