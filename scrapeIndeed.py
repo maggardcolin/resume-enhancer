@@ -1,4 +1,11 @@
-import json, os
+# this scrapes indeed's site and calls the parseJSON script
+# input: search string
+# processing: finding job titles and links to do with the search string
+# output: json file containing job descriptions
+
+# author: Colin Maggard
+
+import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -9,18 +16,20 @@ from selenium.webdriver.support.ui import WebDriverWait
 from datetime import datetime
 from parseJSON import *
 
+# outputs to json and calls process_json in the parseJSON script
 def outputJSON(indeed_posts, driver, category):
     output = []
 
+    # iterate through each post and check their full page
     for post in indeed_posts:
         job_title = post['job_title']
-        #print(job_title)
         link = post["link"]
-        #print(link)
         driver.get(link)
         wait = WebDriverWait(driver, 10)
         wait.until(EC.presence_of_element_located((By.ID, 'jobDescriptionText')))
         description = ""
+
+        # copy the entire page, pretty much
         try:
             description_fields = driver.find_elements(By.CSS_SELECTOR, 'p')
             for d in description_fields:
@@ -36,17 +45,19 @@ def outputJSON(indeed_posts, driver, category):
 
         output.append({'job_title': job_title, 'description': description})
 
-    # get current time and add to json file
+    # get current time and add to json file, this will be deleted later and is intermediary
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
     with open(f"./output/{category}{current_date_time}.json", 'w') as file:
-        json.dump(output, file, indent=4)
+        json.dump(output, file, indent = 4)
     process_json(f"./output/{category}{current_date_time}.json", category)
 
+# this is called by main file
 def searchJobs(job_title: str):    
 
     print("Now searching for jobs matching \"" + job_title + "\". Please wait.")
 
+    # TODO make work with headless, currently times out when you try to do that
     headless = False
 
     if headless:

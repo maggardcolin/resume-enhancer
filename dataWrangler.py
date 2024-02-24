@@ -1,6 +1,8 @@
 # input - processed json file
 # processing, finding top keywords
-# output - processed even more json file
+# output - even more processed json file
+
+# author: Colin Maggard
 
 import json, nltk, os
 from nltk.corpus import stopwords

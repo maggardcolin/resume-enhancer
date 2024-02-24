@@ -2,18 +2,20 @@
 #processing - count each occurrence of word, not case sensitive (not including field names)
 #output json file with each word getting its own field and having a value equal to its frequency
 
+# author: Colin Maggard, Shorya
+
 import json, re, os
 from collections import defaultdict
 from datetime import datetime
 from dataWrangler import *
 
-# remove extra spaces, newlines and convert to lower case.
+# remove whitespace and convert to lower case.
 def clean_text(text):
     return re.sub(r'\s+', ' ', text).strip().lower()
 
 # processes json file made by the scraper
 def process_json(file_path, category):
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(file_path, 'r', encoding = 'utf-8') as file:
         jobs = json.load(file)
     
     # Initialize a dictionary to hold keyword counts
@@ -36,10 +38,11 @@ def process_json(file_path, category):
 
 # write keyword counts to a json file
 def write_output(keyword_counts, category):
+    # sort the fields
     output_data = dict(sorted(keyword_counts.items(), key = lambda item: item[1], reverse = True))
     # get current time and add to json file name
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
     with open(f"./output/parsed{current_date_time}.json", 'w') as file:
-        json.dump(output_data, file, indent=4)
+        json.dump(output_data, file, indent = 4)
     process_data(f"./output/parsed{current_date_time}.json", category)
