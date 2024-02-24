@@ -5,13 +5,18 @@ class Education:
         self.location = location
         self.gpa = gpa
         self.description = description.split(delimiter)
-    def getDegree(self):
+
+    def get_degree(self):
         return self.degree
-    def getDate(self):
+
+    def get_date(self):
         return self.degree
-    def getLocation(self):
+
+    def get_location(self):
         return self.location
-    def getGPA(self):
+
+    def get_gpa(self):
         return self.gpa
-    def getDescription(self):
+
+    def get_description(self):
         return self.description
