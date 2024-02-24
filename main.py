@@ -1,2 +1,2 @@
 from scrapeIndeed import *
-searchJobs("software engineer")
+searchJobs("custodian")
