@@ -10,22 +10,22 @@ from datetime import datetime
 # List of software development related keywords
 keywords = ['python', 'java', 'c++', 'sql', 'javascript', 'linux', 'git', 'docker', 'agile', 'scrum']
 
-#Remove extra spaces, newlines and convert to lower case.
+# remove extra spaces, newlines and convert to lower case.
 def clean_text(text):
     return re.sub(r'\s+', ' ', text).strip().lower()
 
-#processes json file made by the scraper
+# processes json file made by the scraper
 def process_json(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
-        resumes = json.load(file)
+        jobs = json.load(file)
     
     # Initialize a dictionary to hold keyword counts
     keyword_counts = defaultdict(int)
 
-    # Process each resume
-    for resume in resumes:
+    # Process each job listing
+    for job in jobs:
         # Extract relevant fields and clean them
-        fields = [resume.get('title', ''), resume.get('description', ''), resume.get('job_description', '')]
+        fields = [job.get('job_title', ''), job.get('description', '')]
         cleaned_text = ' '.join(clean_text(field) for field in fields)
         
         # Count the occurrences of each keyword
@@ -37,7 +37,7 @@ def process_json(file_path):
 #write keyword counts to a json file
 def write_output(keyword_counts):
     output_data = dict(keyword_counts)
-    # get current time and add to json file
+    # get current time and add to json file name
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
     with open(f"parsed{current_date_time}.json", 'w') as file:
