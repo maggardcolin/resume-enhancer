@@ -28,7 +28,7 @@ def outputJSON(indeed_posts, driver):
         except Exception as e:
             pass
         try:
-            description_fields = driver.find_elements(By.CSS_SELECTOR, 'ul.li')
+            description_fields = driver.find_elements(By.CSS_SELECTOR, 'ul li')
             for d in description_fields:
                 description += d.text + " "
         except Exception as e:
@@ -77,4 +77,4 @@ def searchJobs(job_title: str):
     finally:
         driver.quit()
 
-searchJobs("data analyst")
+searchJobs("software engineer")
