@@ -8,6 +8,7 @@ import json, nltk, os
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from datetime import datetime
+from bannedwords import banned_words
 
 def process_data(file_path, category):
     nltk.download('stopwords')
@@ -21,7 +22,8 @@ def process_data(file_path, category):
     for field in data:
         processed_text = remove_stop_words(field)
         if processed_text:
-            accepted_words.append({"text": processed_text, "value": data[field]})
+            if not any(banned_word in processed_text for banned_word in banned_words):
+                accepted_words.append({"text": processed_text, "value": data[field]})
 
     # get current time and add to json file name
     now = datetime.now()
