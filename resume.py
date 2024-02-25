@@ -212,15 +212,3 @@ class Resume:
             res.add_project(project.name, project.languages, description, "\n")
         res.add_skills(self.skills)
         return res
-
-
-if __name__ == '__main__':
-    res = Resume("name", "city", "state", "email", "number", "objective statement", "link link link")
-    res.add_project("name", "language", "a,b,c")
-    res.add_experience("company", "role", "location", "a-b", "d,e,f")
-    res.add_activity("org", "here", "role_title", "g,h,i")
-    res.add_education("Batchylors of Science in BS", "Today!", "nowhere", "1.52/4.00", "j,k,l")
-    res.add_skills("I")
-    res.add_skills("have,no")
-    res.add_skills("skills")
-    res.clone().compile_resume().save("wompawompa.docx")
