@@ -92,7 +92,12 @@ class Resume:
         insert_hr(namep)
 
         contactp = doc.add_paragraph()
-        contact = contactp.add_run(self.city + ", " + self.state + " | " + self.email + " | " + self.links)
+        contact_field = self.city + ", " + self.state + " | " + self.email
+        if len(self.links) != 0:
+            contact_field = contact_field + " | " + self.links
+
+        contact = contactp.add_run(contact_field)
+
         contact.font.name = font
         contact.font.size = body_pt
         contactp.paragraph_format.space_after = section_space_pt
@@ -125,7 +130,16 @@ class Resume:
                 exp.import_to_doc(doc, body_pt)
 
         if len(self.activities) != 0:
-            pass
+            activity_header_paragraph = doc.add_paragraph()
+            activity_header_paragraph.paragraph_format.space_after = Pt(0)
+            activity_header_paragraph.paragraph_format.space_before = section_space_pt
+            header = "Activities"
+            if len(self.activities) == 1:
+                header = "Activity"
+            activity_header = activity_header_paragraph.add_run(header)
+            format_run(activity_header, section_header_pt, bold=True)
+            for activity in self.activities:
+                activity.import_to_doc(doc, body_pt)
 
         if len(self.projects) != 0:
             project_header_paragraph = doc.add_paragraph()
@@ -147,8 +161,12 @@ if __name__ == '__main__':
                               "Programming I - III,Intro to ML Research", ",")
     res.educations.append(edu)
 
-    res.add_experience("Cinemark", "Assitant Manager", "Barrington, IL", "August 2018 - August 2023", "Responsible for overseeing the effective completion of crew member tasks.;Train new crew members on various skills required for their job.;Compile and verify nightly deposits.;Mediate and handle guest concerns.", ";")
+    res.add_experience("Cinemark", "Assitant Manager", "Barrington, IL", "August 2018 - August 2023",
+                       "Responsible for overseeing the effective completion of crew member tasks.;Train new crew members on various skills required for their job.;Compile and verify nightly deposits.;Mediate and handle guest concerns.",
+                       ";")
 
     res.add_project("Resume Builder", "Python", "somethingidk,something else idk")
+
+    res.add_activity("maddata", "Madison, WI", "Hackathon Participant", "test,test,test")
 
     res.compile_resume().save("test.docx")
