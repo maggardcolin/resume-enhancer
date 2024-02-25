@@ -172,5 +172,7 @@ class Resume:
                 skills_list = skills_list + ", " + skill.strip()
             skill_list_run = doc.add_paragraph().add_run(skills_list)
             format_run(skill_list_run, body_pt)
-
         return doc
+
+    def clone(self):
+       res = Resume(self.name, self.city, self.state, self.email, self.number, self.objective, self.links)
