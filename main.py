@@ -156,7 +156,7 @@ print("""
 
 # tips section
 print("Tips:\nResumes should be 1 page in most cases.\nDon't put high school on your resume.\nLimit yourself to one or two of your best projects if you choose to include any.\nTry to quantify data and use keywords from the job description where possible.\n")
-input("Press enter to start.")
+input("Press enter to start. ")
 
 if os.name == 'nt':
     os.system('cls')
@@ -194,12 +194,12 @@ for i in range(1, linkscnt + 1):
 obj_consent = None
 while obj_consent is None:
     try:
-        obj_consent = input("Would you like to add an objective statement (y/n): ")
+        obj_consent = input("Would you like to add a professional summary? (y/n): ")
         # prompts input for the objective section
     except:
         print("(y/n)")
     if obj_consent == "y":
-        objective = input("Please input your objective statement (a brief, targeted statement that clearly communicates the purpose of your resume): ")
+        objective = input("Please input your professional summary (short description of your qualifications): ")
     else:
         print("")
 
