@@ -1,3 +1,5 @@
+# author: Nick Pastore
+
 from ResumeObjects import Activity, Education, Experience, Project
 from docx import Document
 from docx.shared import Pt
@@ -135,18 +137,3 @@ class Resume:
                 project.import_to_doc(doc, body_pt)
 
         return doc
-
-
-if __name__ == '__main__':
-    res = Resume("Nicholas Pastore", "Madison", "Wisconsin", "npastore@wisc.edu", "224-634-8752",
-                 "I want to be a cs major", "links")
-    edu = Education.Education("Bachelors of Science in Computer Science", "May 2027",
-                              "University of Wisconsin - Madison", "4.0/4.0",
-                              "Programming I - III,Intro to ML Research", ",")
-    res.educations.append(edu)
-
-    res.add_experience("Cinemark", "Assitant Manager", "Barrington, IL", "August 2018 - August 2023", "Responsible for overseeing the effective completion of crew member tasks.;Train new crew members on various skills required for their job.;Compile and verify nightly deposits.;Mediate and handle guest concerns.", ";")
-
-    res.add_project("Resume Builder", "Python", "somethingidk,something else idk")
-
-    res.compile_resume().save("test.docx")

@@ -1,3 +1,5 @@
+# author: Atiksh Shah, Colin Maggard
+
 from scrapeIndeed import *
 from resume import Resume
 
@@ -41,7 +43,7 @@ def add_edu():
     # prompt for location
     college_location = input("Please enter the city and state of your school (e.g. 'Madison, WI): ")
     # prompt for degree
-    degree = input("Please enter your degree name (e.g. Bachelor of Science, Master of Science): ")
+    degree = input("Please enter your degree name (e.g. Bachelor of Science in Computer Engineering): ")
     # prompt for expected grad month/year
     grad = input("Please enter your graduation month and year (e.g. 'May 2026'): ")
     # prompt for gpa
@@ -126,5 +128,9 @@ while obj_consent is None:
 # inits the resume object
 my_resume = Resume(name, city, state, email, phone, objective, links)
 display_menu()
-job = input("Finally, what type of job are you trying to apply for?")
+job = input("Finally, what type of job are you trying to apply for? ")
 searchJobs(job)
+
+# TODO apply data analysis to the resume somehow
+
+my_resume.compile_resume().save(f"./output/{name}_Resume.docx")

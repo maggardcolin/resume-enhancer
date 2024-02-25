@@ -2,7 +2,7 @@
 #processing - count each occurrence of word, not case sensitive (not including field names)
 #output json file with each word getting its own field and having a value equal to its frequency
 
-# author: Colin Maggard, Shorya
+# author: Colin Maggard, Shorya Haziza
 
 import json, re, os
 from collections import defaultdict
