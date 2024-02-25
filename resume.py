@@ -135,5 +135,4 @@ class Resume:
             format_run(project_header, section_header_pt, bold=True)
             for project in self.projects:
                 project.import_to_doc(doc, body_pt)
-
         return doc
