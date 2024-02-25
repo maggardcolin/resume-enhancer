@@ -30,6 +30,11 @@ infoprompts = ["Please enter your full name:", "Please enter your city:",
                "Please enter your state abbreviation (e.g. WI):",
                "Please enter your email:","Please enter your phone number"]
 infoanswers = []
+gatherLinks = False
+links = ""
+linkprompts = ["How many links would you like to include any links in your resume header?", "Please enter an integer."]
+link_index = 1
+objective_statement = ""
 i = 0
 inputstring = ""
 character_amount = 0
@@ -90,14 +95,52 @@ while gamerun:
                     i += 1
                     if i >= len(infoprompts):
                         activity = "Menu"
+                    else:
+                        activity = "LinkMenu"
                 elif character_amount < 24 and event.unicode.isprintable():
                     inputstring += event.unicode
                     character_amount += 1
+
+        elif activity == "LinkMenu":
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE and character_amount > 0:
+                    inputstring = inputstring[:-1]
+                    character_amount -= 1
+                elif event.key == pygame.K_RETURN:
+                    # count number of links
+                    if (not int(inputstring)):
+                        i = 1
+                        break
+                    if int(inputstring) > 0:
+                       gatherLinks == True
+                       linkCount = inputstring
+                       activity = "GatherLinks"
+                    else:
+                        activity = "ObjectiveMenu"
+                elif character_amount < 24 and event.unicode.isprintable():
+                    inputstring += event.unicode
+                    character_amount += 1
+        
+        elif activity == "GatherLinks":
+            while (link_index < linkCount)
+                links = links + link
+                if (i != linkscnt):
+                    links += ","
+
+        elif activity == "ObjectiveMenu":
+            pass
+
+        elif activity == "GatherObjective":
+            pass
 
     if activity == "Menu":
         render_menu(selection)
     elif activity == "Information" and i < len(infoprompts):
         render_information(infoprompts[i], inputstring, character_amount)
+    elif activity == "LinkMenu":
+        render_information(linkprompts[i], inputstring, character_amount)
+    elif activity == "GatherLinks":
+        render_information("Please provide link #{link_index}: ", inputstring, character_amount)
 
     pygame.display.update()
     clock.tick(60)
