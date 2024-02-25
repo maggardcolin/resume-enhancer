@@ -1,7 +1,28 @@
 # author: Atiksh Shah, Colin Maggard
 
+import subprocess, sys
 from scrapeIndeed import *
 from resume import Resume
+
+# install needed modules
+try:
+    import selenium
+except ImportError:
+    print("'selenium' is not installed. Please wait while it is installed...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "selenium"])
+    import selenium
+try:
+    import nltk
+except ImportError:
+    print("'nltk' is not installed. Please wait while it is installed...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "nltk"])
+    import nltk
+try:
+    import docx
+except ImportError:
+    print("'nltk' is not installed. Please wait while it is installed...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "python-docx"])
+    import docx
 
 # displays the menu
 def display_menu():
@@ -12,7 +33,7 @@ def display_menu():
                 \n[3]: Add Activity \n[4]: Add Project\n[5]: Add Skills\n[6]: Export Resume \
                 \n[7]: Quit\n"))
         except:
-            print("Please enter an integer")
+            print("Please enter an integer.")
     if command == 1:
         add_edu()
         display_menu()
@@ -115,7 +136,7 @@ obj_consent = None
 while obj_consent is None:
     try:
         obj_consent = input("Would you like to add an objective statement (y/n): ")
-        #prompts input for the objective section
+        # prompts input for the objective section
     except:
         print("enter True or False")
     if obj_consent == "y":
