@@ -166,10 +166,10 @@ class Resume:
             first = True
             for skill in self.skills.split(","):
                 if first:
-                    skills_list = skill
+                    skills_list = skill.strip()
                     first = False
                     continue
-                skills_list = skills_list + ", " + skill
+                skills_list = skills_list + ", " + skill.strip()
             skill_list_run = doc.add_paragraph().add_run(skills_list)
             format_run(skill_list_run, body_pt)
 
