@@ -1,3 +1,4 @@
 selenium
 nltk
 python-docx
+pandas

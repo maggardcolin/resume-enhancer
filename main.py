@@ -17,9 +17,15 @@ except ImportError:
 try:
     import docx
 except ImportError:
-    print("'nltk' is not installed. Please wait while it is installed...")
+    print("'docx' is not installed. Please wait while it is installed...")
     subprocess.check_call([sys.executable, "-m", "pip", "install", "python-docx"])
     import docx
+try:
+    import pandas
+except ImportError:
+    print("'pandas' is not installed. Please wait while it is installed...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pandas"])
+    import pandas
 from scrapeIndeed import searchJobs
 from resume import Resume
 from scoring import scoreResume
