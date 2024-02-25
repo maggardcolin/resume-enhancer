@@ -159,7 +159,7 @@ class Resume:
 
         # contact "line" after the Name
         contactp = doc.add_paragraph()
-        contact_field = self.city + ", " + self.state + " | " + self.email
+        contact_field = self.city + ", " + self.state + " | " + self.email + " | " + self.number
         if len(self.links) != 0:
             contact_field = contact_field + " | " + self.links
 
