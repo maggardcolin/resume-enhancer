@@ -137,10 +137,49 @@ while gamerun:
                     character_amount += 1
 
         elif activity == "ObjectiveMenu":
-            pass
-        
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE and character_amount > 0:
+                    inputstring = inputstring[:-1]
+                    character_amount -= 1
+                elif event.key == pygame.K_RETURN:
+                    if inputstring.isdigit():
+                        linkCount = inputstring
+                        if inputstring == 'y':
+                            activity = "GatherObjective"
+                        else:
+                            activity = "ObjectiveMenu"
+                    else:
+                        print("Please enter a valid integer.")
+                elif character_amount < 24 and event.unicode.isprintable():
+                    inputstring += event.unicode
+                    character_amount += 1
+
         elif activity == "GatherObjective":
-            pass
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE and character_amount > 0:
+                    inputstring = inputstring[:-1]
+                    character_amount -= 1
+                elif event.key == pygame.K_RETURN:
+                    my_resume = Resume(infoanswers[0], infoanswers[1], infoanswers[2], 
+                               infoanswers[3], infoanswers[4], objective_statement, links)
+                    activity = "MainMenu"
+                elif character_amount < 24 and event.unicode.isprintable():
+                    inputstring += event.unicode
+                    character_amount += 1
+
+        elif activity == "MainMenu":
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    selection = max(0, selection - 1)
+                elif event.key == pygame.K_DOWN:
+                    selection = min(1, selection + 1)
+                elif event.key == pygame.K_SPACE:
+                    if selection == 0:
+                        activity = "Information"
+                        i = 0
+                    else:
+                        pygame.quit()
+                        sys.exit()
 
     if activity == "Menu":
         render_menu(selection)
@@ -149,7 +188,13 @@ while gamerun:
     elif activity == "LinkMenu":
         render_information(linkprompts[0], inputstring, character_amount)
     elif activity == "GatherLinks":
-        render_information(f"Please provide link #{link_index+1}: ", inputstring, character_amount)
+        render_information(f"Please provide link #{link_index + 1}: ", inputstring, character_amount)
+    elif activity == "ObjectiveMenu":
+        render_information("Would you like to include an objective statement? (y/n)", inputstring, character_amount)
+    elif activity == "GatherObjective":
+        render_information("Please input your objective statement.", inputstring, character_amount)
+    elif activity == "MainMenu":
+        render_menu(selection)
 
     pygame.display.update()
     clock.tick(60)
