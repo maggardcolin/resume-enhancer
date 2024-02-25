@@ -1,4 +1,4 @@
-## Resume Enhancer for Job Applications
+## Resume Enhancer for Job Applications - Made for MadData 2024
 
 ### Summary
 - Our goal for this project is to create a sophisticated Python program that enhances resumes, with the intention to be more appealing to potential employers. 
