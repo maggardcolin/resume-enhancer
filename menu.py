@@ -1,4 +1,5 @@
 import pygame, sys
+from resume import Resume
 
 # Define some colors
 BLACK = (0, 0, 0)
@@ -37,19 +38,49 @@ inputstring = ""
 character_amount = 0
 
 def render_menu(selection):
-    screen.fill(BLACK)  # clear screen
-    title = font.render("Resume Enhancer", True, WHITE)
-    screen.blit(title, (180 * multiplier, 5 * multiplier))
+    if activity == "Menu":
+        screen.fill(BLACK)  # clear screen
+        title = font.render("Resume Enhancer", True, WHITE)
+        screen.blit(title, (180 * multiplier, 5 * multiplier))
 
-    # Menu options
-    menu0_color = RED if selection == 0 else WHITE
-    menu1_color = RED if selection == 1 else WHITE
+        # Menu options
+        menu0_color = RED if selection == 0 else WHITE
+        menu1_color = RED if selection == 1 else WHITE
 
-    menu0 = hudfont.render("Create Resume", True, menu0_color)
-    menu1 = hudfont.render("Quit", True, menu1_color)
+        menu0 = hudfont.render("Create Resume", True, menu0_color)
+        menu1 = hudfont.render("Quit", True, menu1_color)
 
-    screen.blit(menu0, (50 * multiplier, 50 * multiplier))
-    screen.blit(menu1, (50 * multiplier, 100 * multiplier))
+        screen.blit(menu0, (50 * multiplier, 50 * multiplier))
+        screen.blit(menu1, (50 * multiplier, 100 * multiplier))
+    elif activity == "MainMenu":
+        screen.fill(BLACK)  # clear screen
+        title = font.render("Add Resume Fields", True, WHITE)
+        screen.blit(title, (180 * multiplier, 5 * multiplier))
+
+        # Menu options
+        menu1_color = RED if selection == 1 else WHITE
+        menu2_color = RED if selection == 2 else WHITE
+        menu3_color = RED if selection == 3 else WHITE
+        menu4_color = RED if selection == 4 else WHITE
+        menu5_color = RED if selection == 5 else WHITE
+        menu6_color = RED if selection == 6 else WHITE
+        menu7_color = RED if selection == 7 else WHITE
+
+        menu1 = hudfont.render("Add Education", True, menu1_color)
+        menu2 = hudfont.render("Add Experience", True, menu2_color)
+        menu3 = hudfont.render("Add Activity", True, menu3_color)
+        menu4 = hudfont.render("Add Project", True, menu4_color)
+        menu5 = hudfont.render("Add Skills", True, menu5_color)
+        menu6 = hudfont.render("Finish and Export Resume", True, menu6_color)
+        menu7 = hudfont.render("Quit App", True, menu7_color)
+
+        screen.blit(menu1, (50 * multiplier, 1 * 25 * multiplier))
+        screen.blit(menu2, (50 * multiplier, 2 * 25 * multiplier))
+        screen.blit(menu3, (50 * multiplier, 3 * 25 * multiplier))
+        screen.blit(menu4, (50 * multiplier, 4 * 25 * multiplier))
+        screen.blit(menu5, (50 * multiplier, 5 * 25 * multiplier))
+        screen.blit(menu6, (50 * multiplier, 6 * 25 * multiplier))
+        screen.blit(menu7, (50 * multiplier, 7 * 25 * multiplier))
 
 def render_information(prompt, inputstring, character_amount):
     screen.fill(BLACK)  # clear screen
@@ -113,6 +144,7 @@ while gamerun:
                             inputstring = ""
                             character_amount = 0
                         else:
+                            inputstring = ""
                             activity = "ObjectiveMenu"
                     else:
                         print("Please enter a valid integer.")
@@ -142,14 +174,12 @@ while gamerun:
                     inputstring = inputstring[:-1]
                     character_amount -= 1
                 elif event.key == pygame.K_RETURN:
-                    if inputstring.isdigit():
-                        linkCount = inputstring
-                        if inputstring == 'y':
-                            activity = "GatherObjective"
-                        else:
-                            activity = "ObjectiveMenu"
+                    linkCount = inputstring
+                    if inputstring == 'y':
+                        inputstring = ""
+                        activity = "GatherObjective"
                     else:
-                        print("Please enter a valid integer.")
+                        activity = "ObjectiveMenu"
                 elif character_amount < 24 and event.unicode.isprintable():
                     inputstring += event.unicode
                     character_amount += 1
@@ -162,6 +192,8 @@ while gamerun:
                 elif event.key == pygame.K_RETURN:
                     my_resume = Resume(infoanswers[0], infoanswers[1], infoanswers[2], 
                                infoanswers[3], infoanswers[4], objective_statement, links)
+                    selection = 1
+                    inputstring = ""
                     activity = "MainMenu"
                 elif character_amount < 24 and event.unicode.isprintable():
                     inputstring += event.unicode
@@ -170,9 +202,9 @@ while gamerun:
         elif activity == "MainMenu":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    selection = max(0, selection - 1)
+                    selection = max(1, selection - 1)
                 elif event.key == pygame.K_DOWN:
-                    selection = min(1, selection + 1)
+                    selection = min(7, selection + 1)
                 elif event.key == pygame.K_SPACE:
                     if selection == 0:
                         activity = "Information"
