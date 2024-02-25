@@ -80,7 +80,7 @@ def add_edu():
     gpa = input("Please enter your current GPA/total possible GPA (e.g '3.90/4.00'): ")
     # prompt for description
     description = input("Please enter any additional fields you would like to display, using '@' to separate each line: ")
-    my_resume.add_education(degree, grad, f"{college} + {college_location}", gpa, description, delimiter="@")
+    my_resume.add_education(degree, grad, college, college_location, gpa, description, delimiter="@")
 
 # add an experience
 def add_exp():   
