@@ -120,9 +120,16 @@ if os.name == 'nt':
     os.system('cls')
 else:
     os.system('clear')
-print("Welcome to Resume Creator!")
+print("""
+***************************************************************
+*                Welcome to Resume Enhancer!                  *
+*   Made possible with Selenium and Natural Language Toolkit  *
+* Created by Maggard, Pastore, Shah, Haziza for MadHacks 2024 *
+***************************************************************
+      """)
 
 #personal info at the top of resume
+print("Personal info section, located at top of page:\n")
 #prompts input for full name
 name = input("Please enter your full name: ")
 # prompts input for city
@@ -154,7 +161,7 @@ while obj_consent is None:
         obj_consent = input("Would you like to add an objective statement (y/n): ")
         # prompts input for the objective section
     except:
-        print("enter True or False")
+        print("(y/n)")
     if obj_consent == "y":
         objective = input("Please input your objective statement (a brief, targeted statement that clearly communicates the purpose of your resume): ")
     else:
