@@ -155,10 +155,12 @@ while obj_consent is None:
 # inits the resume object
 my_resume = Resume(name, city, state, email, phone, objective, links)
 display_menu()
+
+#basically entire backend
 job = input("Finally, what type of job are you trying to apply for? ")
 the_final_file = searchJobs(job)
 
-# TODO apply data analysis to the resume somehow
+# data analysis
 scoreResume(the_final_file, my_resume)
 
 my_resume.compile_resume().save(f"./output/{name}_Resume.docx")

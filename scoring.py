@@ -1,4 +1,5 @@
 import pandas as pd
+from ResumeObjects import *
 
 def scoreResume(file_path, my_resume):
     key_count = 0
@@ -11,25 +12,37 @@ def scoreResume(file_path, my_resume):
         experiences = my_resume.experiences
         projects = my_resume.projects
         
+        if keyword in my_resume.objective:
+            print(keyword + " matched!")
+            key_count += 1
         if keyword in my_resume.skills:
+            print(keyword + " matched!")
             key_count += 1
         for activity in activities:
             if keyword in activity.get_description():
+                print(keyword + " matched!")
                 key_count += 1
             if keyword in activity.get_role():
+                print(keyword + " matched!")
                 key_count += 1
             if keyword in activity.get_organization():
+                print(keyword + " matched!")
                 key_count += 1
         for experience in experiences:
             if keyword in experience.get_description():
+                print(keyword + " matched!")
                 key_count += 1
             if keyword in experience.get_role():
+                print(keyword + " matched!")
                 key_count += 1
             if keyword in experience.get_company():
+                print(keyword + " matched!")
                 key_count += 1
         for project in projects:
             if keyword in project.description:
+                print(keyword + " matched!")
                 key_count += 1
             if keyword in activity.languages:
+                print(keyword + " matched!")
                 key_count += 1
     print(key_count)    
