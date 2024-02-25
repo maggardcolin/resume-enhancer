@@ -1,3 +1,5 @@
+# author: Nick Pastore
+
 from docx.shared import Pt
 
 import resume

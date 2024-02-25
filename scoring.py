@@ -1,3 +1,5 @@
+# author: Colin Maggard, Atiksh Shah
+
 import pandas as pd
 from ResumeObjects import *
 

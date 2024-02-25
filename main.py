@@ -1,4 +1,4 @@
-# author: Atiksh Shah, Colin Maggard
+# author: Colin Maggard, Atiksh Shah
 
 import subprocess, sys, os
 # install needed modules

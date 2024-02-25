@@ -1,3 +1,5 @@
+# author: Colin Maggard
+
 import pygame, sys
 from resume import Resume
 
