@@ -79,7 +79,10 @@ class Resume:
         self.projects.append(p1)
 
     def add_skills(self, skill):
-        self.skills = self.skills + ", " + skill
+        if len(self.skills) == 0:
+            self.skills = skill
+        else:
+            self.skills = self.skills + "," + skill
 
     def compile_resume(self):
         doc = Document()
@@ -150,23 +153,48 @@ class Resume:
             for project in self.projects:
                 project.import_to_doc(doc, body_pt)
 
+        if len(self.skills) != 0:
+            skill_paragraph = doc.add_paragraph()
+            skill_paragraph.paragraph_format.space_before = section_space_pt
+            skill_paragraph.paragraph_format.space_after = Pt(0)
+            skill_header = skill_paragraph.add_run("Skills")
+            format_run(skill_header, section_header_pt, bold=True)
+            skills_list = ""
+            first = True
+            for skill in self.skills.split(","):
+                if first:
+                    skills_list = skill
+                    first = False
+                    continue
+                skills_list = skills_list + ", " + skill
+            skill_list_run = doc.add_paragraph().add_run(skills_list)
+            format_run(skill_list_run, body_pt)
+
         return doc
 
 
 if __name__ == '__main__':
     res = Resume("Nicholas Pastore", "Madison", "Wisconsin", "npastore@wisc.edu", "224-634-8752",
-                 "I want to be a cs major", "links")
+                 "Desire an internship where I can apply my software engineering skills and grow my knowledge of building industry applications while helping businesses meet their objectives. I am a collaborative team member who possesses a relentless curiosity for learning and a passion for technological innovation.",
+                 "links")
     edu = Education.Education("Bachelors of Science in Computer Science", "May 2027",
                               "University of Wisconsin - Madison", "4.0/4.0",
-                              "Programming I - III,Intro to ML Research", ",")
+                              "Programming I - III,Intro to ML Research,Intro to Computer Engineering", ",")
     res.educations.append(edu)
 
     res.add_experience("Cinemark", "Assitant Manager", "Barrington, IL", "August 2018 - August 2023",
-                       "Responsible for overseeing the effective completion of crew member tasks.;Train new crew members on various skills required for their job.;Compile and verify nightly deposits.;Mediate and handle guest concerns.",
+                       "Responsible for overseeing the effective completion of crew member tasks.;Train new crew members on various skills required for their job.;Compile and verify nightly deposits.;Mediate and handle guest concerns.;Compile and verify nightly deposits.",
                        ";")
+    res.add_project("Videogame Market Analyzer", "Java",
+                    "Built program that compiles video game market data to optimize trading patterns.\nUsed JSON parsing Java libraries to compile information from 3rd party game market API.\nUtilized by online game community to help enhance user buying/selling decisions.",
+                    "\n")
 
     res.add_project("Resume Builder", "Python", "somethingidk,something else idk")
 
-    res.add_activity("maddata", "Madison, WI", "Hackathon Participant", "test,test,test")
-
+    res.add_activity("Barrington High School", "Barrington, IL", "AP Computer Science Teaching Assistant",
+                     "Assisted with teaching AP Computer Science A curriculum.\nHelped students understand concepts and complete work.\nGraded assignments and provided feedback/advice to students.",
+                     "\n")
+    res.add_skills("Java")
+    res.add_skills("Python,Swag,Test")
+    res.add_skills("Java Squared")
     res.compile_resume().save("test.docx")
