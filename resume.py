@@ -75,7 +75,7 @@ class Resume:
         self.projects = []
         self.skills = ""
 
-    def add_education(self, degree, date, location, gpa, description, delimiter="\n"):
+    def add_education(self, degree, date, college, location, gpa, description, delimiter="\n"):
         """
         Adds an education field to the resume
         :param degree: Degree and Major to be added in Education (Ex: Bachelor of Science in Computer Science)
@@ -86,7 +86,7 @@ class Resume:
         (commas by default)
         :param delimiter: The delimiter you would like to use for seperate bullet points. Default: '\n'
         """
-        e1 = Education.Education(degree, date, location, gpa, description, delimiter)
+        e1 = Education.Education(degree, date, college, location, gpa, description, delimiter)
         self.educations.append(e1)
 
     def add_activity(self, organization, location, role_title, description, delimiter="\n"):
@@ -264,7 +264,7 @@ class Resume:
                 description += education.description[i]
                 if i < len(education.description) - 1:
                     description += "\n"
-            duplicate_docx.add_education(education.degree, education.date, education.location, education.gpa,
+            duplicate_docx.add_education(education.degree, education.date, education.college, education.location, education.gpa,
                                          description, "\n")
 
         # same thing but for experiences

@@ -4,9 +4,10 @@ import resume
 
 
 class Education:
-    def __init__(self, degree, date, location, gpa, description, delimiter):
+    def __init__(self, degree, date, college, location, gpa, description, delimiter):
         self.degree = degree
         self.date = date
+        self.college = college
         self.location = location
         self.gpa = gpa
         self.description = description.split(delimiter)
@@ -25,8 +26,10 @@ class Education:
 
         school_name_paragraph = doc.add_paragraph()
         school_name_paragraph.paragraph_format.space_after = Pt(0)
-        school_name_run = school_name_paragraph.add_run(self.location)
+        school_name_run = school_name_paragraph.add_run(self.college + " | ")
         resume.format_run(school_name_run, body_pt)
+
+        resume.format_run(school_name_paragraph.add_run(self.location), body_pt, italic=True)
 
         gpa_paragraph = doc.add_paragraph()
         gpa_paragraph.paragraph_format.space_after = Pt(0)
