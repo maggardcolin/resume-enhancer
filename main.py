@@ -126,7 +126,7 @@ def add_proj():
     project_name = input("Enter project name: ")
     langs = input("Enter any technologies/languages used (e.g 'Java, Python, C'): ")
     description = input("Please enter the description of this project using '@' to separate the bullet points: ")
-    my_resume.add_project(name, langs, description, delimiter = "@")
+    my_resume.add_project(project_name, langs, description, delimiter = "@")
 
 # add skills
 def add_skill():
