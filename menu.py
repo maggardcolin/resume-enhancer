@@ -31,7 +31,7 @@ infoprompts = ["Please enter your full name:", "Please enter your city:",
 infoanswers = []
 gatherLinks = False
 links = []
-linkprompts = ["How many links would you like to include in your resume header? (Enter an integer)"]
+linkprompts = ["Number of links in resume header? (Enter an integer)"]
 link_index = 0
 linkCount = 0
 objective_statement = ""
@@ -181,6 +181,7 @@ while gamerun:
                         inputstring = ""
                         activity = "GatherObjective"
                     else:
+                        inputstring = ""
                         activity = "ObjectiveMenu"
                 elif character_amount < 24 and event.unicode.isprintable():
                     inputstring += event.unicode
@@ -208,7 +209,22 @@ while gamerun:
                 elif event.key == pygame.K_DOWN:
                     selection = min(7, selection + 1)
                 elif event.key == pygame.K_SPACE:
-                    if selection == 0:
+                    if selection == 1:
+                        activity = "Education"
+                        i = 0
+                    if selection == 2:
+                        activity = "Information"
+                        i = 0
+                    if selection == 3:
+                        activity = "Information"
+                        i = 0
+                    if selection == 4:
+                        activity = "Information"
+                        i = 0
+                    if selection == 5:
+                        activity = "Information"
+                        i = 0
+                    if selection == 6:
                         activity = "Information"
                         i = 0
                     else:
@@ -224,7 +240,7 @@ while gamerun:
     elif activity == "GatherLinks":
         render_information(f"Please provide link #{link_index + 1}: ", inputstring, character_amount)
     elif activity == "ObjectiveMenu":
-        render_information("Would you like to include an objective statement? (y/n)", inputstring, character_amount)
+        render_information("Include an objective statement? (y/n)", inputstring, character_amount)
     elif activity == "GatherObjective":
         render_information("Please input your objective statement.", inputstring, character_amount)
     elif activity == "MainMenu":
