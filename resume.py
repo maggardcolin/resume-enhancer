@@ -75,7 +75,7 @@ class Resume:
         self.projects = []
         self.skills = ""
 
-    def add_education(self, degree, date, location, gpa, description, delimiter=","):
+    def add_education(self, degree, date, location, gpa, description, delimiter="\n"):
         """
         Adds an education field to the resume
         :param degree: Degree and Major to be added in Education (Ex: Bachelor of Science in Computer Science)
@@ -84,12 +84,12 @@ class Resume:
         :param gpa: The GPA at the establishment (Ex: 3.87/4.00)
         :param description: Additional fields that will be displayed as bullets. Seperated by a configurable delimiter.
         (commas by default)
-        :param delimiter: The delimiter you would like to use for seperate bullet points. Default: ','
+        :param delimiter: The delimiter you would like to use for seperate bullet points. Default: '\n'
         """
         e1 = Education.Education(degree, date, location, gpa, description, delimiter)
         self.educations.append(e1)
 
-    def add_activity(self, organization, location, role_title, description, delimiter=","):
+    def add_activity(self, organization, location, role_title, description, delimiter="\n"):
         """
         Adds an activity field to the resume
         :param organization: The organization affiliated with the activity
@@ -97,12 +97,12 @@ class Resume:
         :param role_title: a short title that best describes your role in the activity
         :param description: Additional fields that will be displayed as bullets. Seperated by a configurable delimiter.
         (commas by default)
-        :param delimiter: The delimiter you would like to use for seperate bullet points. Default: ','
+        :param delimiter: The delimiter you would like to use for seperate bullet points. Default: '\n'
         """
         a1 = Activity.Activity(organization, location, role_title, description, delimiter)
         self.activities.append(a1)
 
-    def add_experience(self, company, role_title, location, duration, description, delimiter=","):
+    def add_experience(self, company, role_title, location, duration, description, delimiter="\n"):
         """
         Adds an (work) experience field to the resume
         :param company: The company you worked for
@@ -111,19 +111,19 @@ class Resume:
         :param duration: The time period you worked for (Ex: May 2023 - Present)
         :param description: Additional fields that will be displayed as bullets. Seperated by a configurable delimiter.
         (commas by default)
-        :param delimiter: The delimiter you would like to use for seperate bullet points. Default: ','
+        :param delimiter: The delimiter you would like to use for seperate bullet points. Default: '\n'
         """
         e1 = Experience.Experience(company, role_title, location, duration, description, delimiter)
         self.experiences.append(e1)
 
-    def add_project(self, name, languages_used, description, delimiter=","):
+    def add_project(self, name, languages_used, description, delimiter="\n"):
         """
         Adds a project field to the resume
         :param name: The name of your project
         :param languages_used: Languages/Tools/Concepts you've used in your project (Ex: 'Java, Python, SQL')
         :param description: Additional fields that will be displayed as bullets. Seperated by a configurable delimiter.
         (commas by default)
-        :param delimiter: The delimiter you would like to use for seperate bullet points. Default: ','
+        :param delimiter: The delimiter you would like to use for seperate bullet points. Default: '\n'
         """
         p1 = Project.Project(name, languages_used, description, delimiter)
         self.projects.append(p1)
