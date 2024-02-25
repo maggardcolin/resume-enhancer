@@ -16,7 +16,7 @@
 - Scoring and Feedback System: Provides feedback based on how well your resume matches job requirements and suggests words to add based on frequently used keywords.
 
 ### How to use
-- Download the code either by cloning the repository or downloading the zip file
-- Install necessary dependencies, which may be limited to pip but more testing is needed (may include selenium, nltk, pandas, and python-docx)
+- Download the code either by cloning the repository or downloading the zip file.
+- Install necessary dependencies, which may be limited to pip but more testing is needed (may include selenium, nltk, pandas, and python-docx).
 - Run the Application: Start the application and follow the prompts directed by the application.
 - Review Results: Analyze the score and feedback provided by the tool to make necessary improvements to your resume.
