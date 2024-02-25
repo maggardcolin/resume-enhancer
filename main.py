@@ -118,7 +118,7 @@ state = input("Please enter your state: ")
 # prompts input for email
 email = input("Please enter your email: ")
 # prompts input for number
-phone = input("Please enter your number (e.g 'x-xxx-xxx-xxxx'): ")
+phone = input("Please enter your phone number: ")
 # prompts input for amount of links
 linkscnt = None
 # handles if linkscnt isn't an integer
@@ -128,9 +128,11 @@ while linkscnt is None:
     except ValueError:
         print("Invalid integer, please enter a number.")
 #prompts input for all links for linkscnt worth of links
-for i in range(linkscnt):
-    link = input("Please provide your shortened link: ")
-    links = links + ", " + link
+for i in range(1, linkscnt + 1):
+    link = input(f"Please provide link #{i}: ")
+    links = links + link
+    if (i != linkscnt):
+        links += ","
 
 obj_consent = None
 while obj_consent is None:
@@ -140,9 +142,7 @@ while obj_consent is None:
     except:
         print("enter True or False")
     if obj_consent == "y":
-        objective = input("Please input your objective/summary \
-                            about yourself (a brief, targeted statement that \
-                            clearly communicates the purpose of your resume): ")
+        objective = input("Please input your objective statement (a brief, targeted statement that clearly communicates the purpose of your resume): ")
     else:
         print("")
 
