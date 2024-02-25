@@ -1,3 +1,5 @@
 *.json
 *.docx
 __pycache__/
+.env
+gptTest.py

@@ -12,6 +12,11 @@ class Education:
         self.description = description.split(delimiter)
 
     def import_to_doc(self, doc, body_pt):
+        """
+        Imports this Education to a given document
+        :param doc: The document to import to
+        :param body_pt: The size to make the body fields
+        """
         degree = self.degree + ", " + self.date
         degree_paragraph = doc.add_paragraph()
         degree_paragraph.paragraph_format.space_after = Pt(0)
