@@ -40,6 +40,7 @@ def format_run(run, pt, bold=False, italic=False):
     run.font.bold = bold
     run.font.italic = italic
 
+
 class Resume:
     def __init__(self, name, city, state, email, number, objective, links):
         # string
@@ -79,7 +80,10 @@ class Resume:
         self.projects.append(p1)
 
     def add_skills(self, skill):
-        self.skills = self.skills + ", " + skill
+        if len(self.skills) == 0:
+            self.skills = skill
+        else:
+            self.skills = self.skills + "," + skill
 
     def compile_resume(self):
         doc = Document()
@@ -92,7 +96,12 @@ class Resume:
         insert_hr(namep)
 
         contactp = doc.add_paragraph()
-        contact = contactp.add_run(self.city + ", " + self.state + " | " + self.email + " | " + self.links)
+        contact_field = self.city + ", " + self.state + " | " + self.email
+        if len(self.links) != 0:
+            contact_field = contact_field + " | " + self.links
+
+        contact = contactp.add_run(contact_field)
+
         contact.font.name = font
         contact.font.size = body_pt
         contactp.paragraph_format.space_after = section_space_pt
@@ -125,7 +134,16 @@ class Resume:
                 exp.import_to_doc(doc, body_pt)
 
         if len(self.activities) != 0:
-            pass
+            activity_header_paragraph = doc.add_paragraph()
+            activity_header_paragraph.paragraph_format.space_after = Pt(0)
+            activity_header_paragraph.paragraph_format.space_before = section_space_pt
+            header = "Activities"
+            if len(self.activities) == 1:
+                header = "Activity"
+            activity_header = activity_header_paragraph.add_run(header)
+            format_run(activity_header, section_header_pt, bold=True)
+            for activity in self.activities:
+                activity.import_to_doc(doc, body_pt)
 
         if len(self.projects) != 0:
             project_header_paragraph = doc.add_paragraph()
@@ -135,4 +153,22 @@ class Resume:
             format_run(project_header, section_header_pt, bold=True)
             for project in self.projects:
                 project.import_to_doc(doc, body_pt)
+
+        if len(self.skills) != 0:
+            skill_paragraph = doc.add_paragraph()
+            skill_paragraph.paragraph_format.space_before = section_space_pt
+            skill_paragraph.paragraph_format.space_after = Pt(0)
+            skill_header = skill_paragraph.add_run("Skills")
+            format_run(skill_header, section_header_pt, bold=True)
+            skills_list = ""
+            first = True
+            for skill in self.skills.split(","):
+                if first:
+                    skills_list = skill
+                    first = False
+                    continue
+                skills_list = skills_list + ", " + skill
+            skill_list_run = doc.add_paragraph().add_run(skills_list)
+            format_run(skill_list_run, body_pt)
+
         return doc
