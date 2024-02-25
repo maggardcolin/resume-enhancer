@@ -11,8 +11,10 @@ from datetime import datetime
 from bannedwords import banned_words
 
 def process_data(file_path, category):
-    nltk.download('stopwords')
-    nltk.download('punkt') 
+
+    # download natural language toolkit packages if not on computer
+    nltk.download('stopwords', quiet = True, raise_on_error = True)
+    nltk.download('punkt', quiet = True, raise_on_error = True)
 
     with open(file_path, 'r') as file:
         data = json.load(file)
