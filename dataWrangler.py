@@ -34,6 +34,7 @@ def process_data(file_path, category):
         json.dump(accepted_words, file, indent = 4)
     os.remove(file_path)
     print("Keywords detected. Running data analysis on your resume...")
+    return (f"./output/{category}_keyword_output_{current_date_time}.json")
 
 # Function to remove stop words
 def remove_stop_words(text):

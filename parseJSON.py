@@ -33,8 +33,9 @@ def process_json(file_path, category):
             if keyword:
                 keyword_counts[keyword] += 1
 
-    write_output(keyword_counts, category)
+    the_final_file = write_output(keyword_counts, category)
     os.remove(file_path)
+    return the_final_file
 
 # write keyword counts to a json file
 def write_output(keyword_counts, category):
@@ -45,4 +46,5 @@ def write_output(keyword_counts, category):
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
     with open(f"./output/parsed{current_date_time}.json", 'w') as file:
         json.dump(output_data, file, indent = 4)
-    process_data(f"./output/parsed{current_date_time}.json", category)
+    the_final_file = process_data(f"./output/parsed{current_date_time}.json", category)
+    return the_final_file

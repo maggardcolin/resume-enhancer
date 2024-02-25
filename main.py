@@ -1,8 +1,9 @@
 # author: Atiksh Shah, Colin Maggard
 
 import subprocess, sys, os
-from scrapeIndeed import *
+from scrapeIndeed import searchJobs
 from resume import Resume
+from scoring import scoreResume
 
 # install needed modules
 try:
@@ -155,8 +156,9 @@ while obj_consent is None:
 my_resume = Resume(name, city, state, email, phone, objective, links)
 display_menu()
 job = input("Finally, what type of job are you trying to apply for? ")
-searchJobs(job)
+the_final_file = searchJobs(job)
 
 # TODO apply data analysis to the resume somehow
+scoreResume(the_final_file, my_resume)
 
 my_resume.compile_resume().save(f"./output/{name}_Resume.docx")

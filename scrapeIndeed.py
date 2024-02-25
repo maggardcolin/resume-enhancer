@@ -50,7 +50,8 @@ def outputJSON(indeed_posts, driver, category):
     current_date_time = now.strftime("%Y-%m-%d %H-%M-%S")
     with open(f"./output/{category}{current_date_time}.json", 'w') as file:
         json.dump(output, file, indent = 4)
-    process_json(f"./output/{category}{current_date_time}.json", category)
+    the_final_file = process_json(f"./output/{category}{current_date_time}.json", category)
+    return the_final_file
 
 # this is called by main file
 def searchJobs(job_title: str):    
@@ -99,8 +100,9 @@ def searchJobs(job_title: str):
             
             indeed_posts.append({'job_title': job_title_element, 'link': link})
         
-        outputJSON(indeed_posts, driver, job_title)
+        the_final_file = outputJSON(indeed_posts, driver, job_title)
     except TimeoutException:
         print("Timeout while waiting for job postings to load.")
     finally:
         driver.quit()
+    return the_final_file
