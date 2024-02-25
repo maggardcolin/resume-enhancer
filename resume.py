@@ -226,8 +226,6 @@ class Resume:
             activity_header_paragraph.paragraph_format.space_after = Pt(0)
             activity_header_paragraph.paragraph_format.space_before = section_space_pt
             header = "Activities"
-            if len(self.activities) == 1:
-                header = "Activity"
             activity_header = activity_header_paragraph.add_run(header)
             format_run(activity_header, section_header_pt, bold=True)
             for activity in self.activities:
@@ -320,6 +318,11 @@ class Resume:
         return duplicate_docx
 
     def calculate_vertical_pt_sum(self):
+        """
+        Calculates the pt size equivalent of all the lines in the document added together. Then it compares it to the
+        max height  that can fit on a single page and returns the ratio. The maximum for 'Calibri' is 564pt
+        :return: A ratio of vertical height : maximum
+        """
         vertical_pt = 10 + name_size + body_size
         if len(self.objective) != 0:
             vertical_pt += section_header_size
@@ -372,5 +375,9 @@ if __name__ == '__main__':
                  "bfdsfjhdsjkafdhghcjashgsdyifuhjsadkhfiudshfiusdgufhsadfhjkdsahfjksdhjkfhdsakjfhjkdsahfjgscnbgyusihojlkfmnbghjklmnjbvcftgyuiojkmnbvcfdtyuiojknbvcfdrtyuhjnbvcfxdsrtyuihjbvgfcdrt7yuhj",
                  "LinkedIn , GitHub")
     res.add_education("BS in BS", "NOW", "College", "location", "4.00/4.00",
-                      "1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11", ",")
+                      "a,b,c", ",")
+    res.add_project("name", "languages", "a,b,c", ",")
+    res.add_project("name", "languages", "d,e,g", ",")
+    res.add_experience("job", "role_title", "location", "may 102 - march 1234", "a.b.c", ".")
+    res.add_skills("Java,SQQ,PYTHON")
     res.compile_resume().save("test.docx")
