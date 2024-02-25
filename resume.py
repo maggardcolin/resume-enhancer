@@ -2,14 +2,16 @@
 
 from ResumeObjects import Activity, Education, Experience, Project
 from docx import Document
-from docx.shared import Pt
+from docx.shared import Pt, Inches
 from docx.oxml.shared import OxmlElement
 from docx.oxml.ns import qn
 
-name_pt = Pt(24)
-body_pt = Pt(12)
-section_header_pt = Pt(16)
+name_pt = Pt(20)
+body_pt = Pt(10)
+section_header_pt = Pt(14)
 section_space_pt = Pt(5)
+top_bottom_margin = 0.7
+left_right_margin = 0.7
 font = 'Calibri'
 
 
@@ -172,7 +174,53 @@ class Resume:
                 skills_list = skills_list + ", " + skill.strip()
             skill_list_run = doc.add_paragraph().add_run(skills_list)
             format_run(skill_list_run, body_pt)
+            section = doc.sections[-1]
+            section.left_margin, section.right_margin = (Inches(left_right_margin), Inches(left_right_margin))
+            section.top_margin, section.bottom_margin = (Inches(top_bottom_margin), Inches(top_bottom_margin))
         return doc
 
     def clone(self):
-       res = Resume(self.name, self.city, self.state, self.email, self.number, self.objective, self.links)
+        res = Resume(self.name, self.city, self.state, self.email, self.number, self.objective, self.links)
+        for education in self.educations:
+            description = ""
+            for i in range(len(education.description)):
+                description += education.description[i]
+                if i < len(education.description) - 1:
+                    description += "\n"
+            res.add_education(education.degree, education.date, education.location, education.gpa, description, "\n")
+        for experience in self.experiences:
+            description = ""
+            for i in range(len(experience.description)):
+                description += experience.description[i]
+                if i < len(experience.description) - 1:
+                    description += "\n"
+            res.add_experience(experience.company, experience.role_title, experience.location, experience.duration,
+                               description, "\n")
+        for activity in self.activities:
+            description = ""
+            for i in range(len(activity.description)):
+                description += activity.description[i]
+                if i < len(activity.description) - 1:
+                    description += "\n"
+            res.add_activity(activity.organization, activity.location, activity.role_title, description, "\n")
+        for project in self.projects:
+            description = ""
+            for i in range(len(project.description)):
+                description += project.description[i]
+                if i < len(project.description) - 1:
+                    description += "\n"
+            res.add_project(project.name, project.languages, description, "\n")
+        res.add_skills(self.skills)
+        return res
+
+
+if __name__ == '__main__':
+    res = Resume("name", "city", "state", "email", "number", "objective statement", "link link link")
+    res.add_project("name", "language", "a,b,c")
+    res.add_experience("company", "role", "location", "a-b", "d,e,f")
+    res.add_activity("org", "here", "role_title", "g,h,i")
+    res.add_education("Batchylors of Science in BS", "Today!", "nowhere", "1.52/4.00", "j,k,l")
+    res.add_skills("I")
+    res.add_skills("have,no")
+    res.add_skills("skills")
+    res.clone().compile_resume().save("wompawompa.docx")
