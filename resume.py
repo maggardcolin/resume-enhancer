@@ -1,4 +1,5 @@
 # author: Nick Pastore
+import math
 
 from ResumeObjects import Activity, Education, Experience, Project
 from docx import Document
@@ -7,12 +8,19 @@ from docx.oxml.shared import OxmlElement
 from docx.oxml.ns import qn
 
 # Default 'style' for resume
-name_pt = Pt(24)
-body_pt = Pt(12)
-section_header_pt = Pt(16)
-section_space_pt = Pt(5)
-top_bottom_margin = 0.7
-left_right_margin = 0.7
+name_size = 24
+body_size = 12
+section_header_size = 16
+section_space_size = 5
+
+name_pt = Pt(name_size)
+body_pt = Pt(body_size)
+section_header_pt = Pt(section_header_size)
+section_space_pt = Pt(section_space_size)
+
+top_bottom_margin = 1
+left_right_margin = 1
+
 font = 'Calibri'
 
 
@@ -145,7 +153,19 @@ class Resume:
         """
         # instantiate the doc
         doc = Document()
-
+        verticle_height = self.calculate_vertical_pt_sum()
+        global name_size, body_size, section_header_size, left_right_margin, top_bottom_margin, name_pt, body_pt
+        global section_header_pt
+        while verticle_height >= 1:
+            print(verticle_height := self.calculate_vertical_pt_sum())
+            name_size -= 0.5
+            body_size -= 0.5
+            section_header_size -= 0.5
+            left_right_margin -= 0.05
+            top_bottom_margin -= 0.05
+        name_pt = Pt(name_size)
+        body_pt = Pt(body_size)
+        section_header_pt = Pt(section_header_size)
         # generates the name header
         namep = doc.add_paragraph()
         name = namep.add_run(self.name)
@@ -242,9 +262,9 @@ class Resume:
             format_run(skill_list_run, body_pt)
 
             # adjust the margins to fit the parameters described at the top of file
-            section = doc.sections[-1]
-            section.left_margin, section.right_margin = (Inches(left_right_margin), Inches(left_right_margin))
-            section.top_margin, section.bottom_margin = (Inches(top_bottom_margin), Inches(top_bottom_margin))
+        section = doc.sections[-1]
+        section.left_margin, section.right_margin = (Inches(left_right_margin), Inches(left_right_margin))
+        section.top_margin, section.bottom_margin = (Inches(top_bottom_margin), Inches(top_bottom_margin))
 
         return doc
 
@@ -264,7 +284,8 @@ class Resume:
                 description += education.description[i]
                 if i < len(education.description) - 1:
                     description += "\n"
-            duplicate_docx.add_education(education.degree, education.date, education.college, education.location, education.gpa,
+            duplicate_docx.add_education(education.degree, education.date, education.college, education.location,
+                                         education.gpa,
                                          description, "\n")
 
         # same thing but for experiences
@@ -297,3 +318,59 @@ class Resume:
         # pass skills into dupe
         duplicate_docx.add_skills(self.skills)
         return duplicate_docx
+
+    def calculate_vertical_pt_sum(self):
+        vertical_pt = 10 + name_size + body_size
+        if len(self.objective) != 0:
+            vertical_pt += section_header_size
+            vertical_pt += math.floor(
+                1 + len(self.objective) / (
+                        95 * (((8.5 - 2 * left_right_margin) / 8.5) * (13.5 / body_size)))) * body_size
+        if len(self.educations) != 0:
+            vertical_pt += section_header_size + section_space_size
+            for education in self.educations:
+                vertical_pt += 3 * body_size
+                for desc in education.description:
+                    vertical_pt += math.floor(
+                        1 + len(desc) / (90 * (((8.5 - 2 * left_right_margin) / 8.5) * (
+                                13.5 / body_size)))) * body_size + 0.037 * body_size
+        if len(self.experiences) != 0:
+            vertical_pt += section_header_size + section_space_size
+            for exp in self.experiences:
+                vertical_pt += 2 * body_size
+                for desc in exp.description:
+                    vertical_pt += math.floor(
+                        1 + len(desc) / (90 * (((8.5 - 2 * left_right_margin) / 8.5) * (
+                                13.5 / body_size)))) * body_size + 0.037 * body_size
+
+        if len(self.activities) != 0:
+            vertical_pt += section_header_size + section_space_size
+            for activity in self.activities:
+                vertical_pt += 2 * body_size
+                for desc in activity.description:
+                    vertical_pt += math.floor(
+                        1 + len(desc) / (90 * (((8.5 - 2 * left_right_margin) / 8.5) * (
+                                13.5 / body_size)))) * body_size + 0.037 * body_size
+
+        if len(self.projects) != 0:
+            vertical_pt += section_header_size + section_space_size
+            for project in self.projects:
+                vertical_pt += body_size
+                for desc in project.description:
+                    vertical_pt += math.floor(
+                        1 + len(desc) / (90 * (((8.5 - 2 * left_right_margin) / 8.5) * (
+                                13.5 / body_size)))) * body_size + 0.037 * body_size
+        if len(self.skills) != 0:
+            vertical_pt += section_header_size + section_space_size
+            vertical_pt += math.floor(
+                1 + len(self.skills) / (90 * (((8.5 - 2 * left_right_margin) / 8.5) * (13.5 / body_size)))) * body_size
+        return vertical_pt / (564 * (11 - 2 * top_bottom_margin) / 11)
+
+
+if __name__ == '__main__':
+    res = Resume("bleh", "1", "IL", "EMAIL", "NUMBER",
+                 "bfdsfjhdsjkafdhghcjashgsdyifuhjsadkhfiudshfiusdgufhsadfhjkdsahfjksdhjkfhdsakjfhjkdsahfjgscnbgyusihojlkfmnbghjklmnjbvcftgyuiojkmnbvcfdtyuiojknbvcfdrtyuhjnbvcfxdsrtyuihjbvgfcdrt7yuhj",
+                 "LinkedIn , GitHub")
+    res.add_education("BS in BS", "NOW", "College", "location", "4.00/4.00",
+                      "1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11", ",")
+    res.compile_resume().save("test.docx")
