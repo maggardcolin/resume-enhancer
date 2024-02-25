@@ -1,3 +1,5 @@
+# author: Nick Pastore
+
 from ResumeObjects import Activity, Education, Experience, Project
 from docx import Document
 from docx.shared import Pt
@@ -10,8 +12,7 @@ section_header_pt = Pt(16)
 section_space_pt = Pt(5)
 font = 'Calibri'
 
-
-# Stolen from stackoverflow https://stackoverflow.com/questions/39006878/python-docx-add-horizontal-line
+# horizontal line function borrowed from stackoverflow https://stackoverflow.com/questions/39006878/python-docx-add-horizontal-line
 def insert_hr(paragraph):
     p = paragraph._p  # p is the <w:p> XML element
     pPr = p.get_or_add_pPr()
@@ -38,7 +39,6 @@ def format_run(run, pt, bold=False, italic=False):
     run.font.size = pt
     run.font.bold = bold
     run.font.italic = italic
-
 
 class Resume:
     def __init__(self, name, city, state, email, number, objective, links):
@@ -135,20 +135,4 @@ class Resume:
             format_run(project_header, section_header_pt, bold=True)
             for project in self.projects:
                 project.import_to_doc(doc, body_pt)
-
         return doc
-
-
-if __name__ == '__main__':
-    res = Resume("Nicholas Pastore", "Madison", "Wisconsin", "npastore@wisc.edu", "224-634-8752",
-                 "I want to be a cs major", "links")
-    edu = Education.Education("Bachelors of Science in Computer Science", "May 2027",
-                              "University of Wisconsin - Madison", "4.0/4.0",
-                              "Programming I - III,Intro to ML Research", ",")
-    res.educations.append(edu)
-
-    res.add_experience("Cinemark", "Assitant Manager", "Barrington, IL", "August 2018 - August 2023", "Responsible for overseeing the effective completion of crew member tasks.;Train new crew members on various skills required for their job.;Compile and verify nightly deposits.;Mediate and handle guest concerns.", ";")
-
-    res.add_project("Resume Builder", "Python", "somethingidk,something else idk")
-
-    res.compile_resume().save("test.docx")

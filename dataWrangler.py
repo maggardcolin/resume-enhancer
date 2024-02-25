@@ -11,8 +11,10 @@ from datetime import datetime
 from bannedwords import banned_words
 
 def process_data(file_path, category):
-    nltk.download('stopwords')
-    nltk.download('punkt') 
+
+    # download natural language toolkit packages if not on computer
+    nltk.download('stopwords', quiet = True, raise_on_error = True)
+    nltk.download('punkt', quiet = True, raise_on_error = True)
 
     with open(file_path, 'r') as file:
         data = json.load(file)
@@ -31,6 +33,7 @@ def process_data(file_path, category):
     with open(f"./output/{category}_keyword_output_{current_date_time}.json", 'w') as file:
         json.dump(accepted_words, file, indent = 4)
     os.remove(file_path)
+    print("Keywords detected. Running data analysis on your resume...")
 
 # Function to remove stop words
 def remove_stop_words(text):
