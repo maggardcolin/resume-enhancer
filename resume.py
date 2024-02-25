@@ -9,8 +9,8 @@ from docx.oxml.ns import qn
 
 # Default 'style' for resume
 name_size = 24
-body_size = 12
-section_header_size = 16
+body_size = 13
+section_header_size = 17
 section_space_size = 5
 
 name_pt = Pt(name_size)
