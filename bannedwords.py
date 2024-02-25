@@ -39,4 +39,4 @@ banned_words = ['experience', 'indeed', 'cpra', 'fill',
                 'fully','prior','am','pm','authorized','availability','110','bereavement','know','95','backgrounds','creed','ancestry',
                 'say','wizards','dragons','superheroes','even','odd','earth','beloved','characters','living','globe',
                 'job','apply','application','00','pay','contact','act',' a ',' b ',' d ',' e ',' f ',' g ',' h ',' i ',' j ',' k ',' l ',' m ',' n ',
-                ' o ',' p ',' q ',' s ',' t ',' u ',' v ',' w ',' x ',' y ',' z ']
+                ' o ',' p ',' q ',' s ',' t ',' u ',' v ',' w ',' x ',' y ',' z ', 'additional']
