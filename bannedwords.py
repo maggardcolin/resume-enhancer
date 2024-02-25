@@ -40,4 +40,4 @@ banned_words = ['experience', 'indeed', 'cpra', 'fill',
                 'say','wizards','dragons','superheroes','even','odd','earth','beloved','characters','living','globe',
                 'job','apply','application','00','pay','contact','act',' a ',' b ',' d ',' e ',' f ',' g ',' h ',' i ',' j ',' k ',' l ',' m ',' n ',
                 ' o ',' p ',' q ',' s ',' t ',' u ',' v ',' w ',' x ',' y ',' z ', 'additional', 'want','https','school',
-                'motorola']
+                'motorola','danfoss']

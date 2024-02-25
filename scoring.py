@@ -75,10 +75,10 @@ def scoreResume(file_path, my_resume):
         os.system('clear')
 
     # score_message calculation: good or bad?
-    score_message = "Wow!" if key_count > 50 else "Nice start, but let's shoot for more!" if key_count > 30 else "Let's add some more keywords!" if key_count > 10 else "Are you sure you're applying to the right job?"
+    score_message = "Wow! Your resume matches jobs in this field very well!" if key_count > 50 else "Nice start, but let's shoot for more!" if key_count > 30 else "Let's add some more keywords!" if key_count > 10 else "Are you sure you're applying to the right job?"
 
     print("\n" + str(key_count) + " matches found. " + score_message)
-    print("Here are the top 10 matched words for job descriptions matching your query: ")
+    print("Here are the top 10 matched relevant words for job descriptions matching your query: ")
     printed_keywords = 0  # Counter for printed keywords
     for i in range(len(word_list)):
         if printed_keywords >= 10:
