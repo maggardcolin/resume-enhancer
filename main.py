@@ -98,7 +98,7 @@ def add_proj():
 
 # add skills
 def add_skill():
-    skills = input("Please enter your skills listed with commas (e.g 'Python, Java, React'): ")
+    skills = input("Please enter your skills, separated by commas (e.g 'Python,Java,React'): ")
     my_resume.add_skills(skills)
 
 # global vars
@@ -120,11 +120,11 @@ email = input("Please enter your email: ")
 # prompts input for number
 phone = input("Please enter your phone number: ")
 # prompts input for amount of links
-linkscnt = None
+linkscnt = -1
 # handles if linkscnt isn't an integer
-while linkscnt is None:
+while linkscnt < 0:
     try: 
-        linkscnt =int(input("How many links would you like to have in your resume in the info section?: "))
+        linkscnt = int(input("How many links would you like to have in your resume in the info section?: "))
     except ValueError:
         print("Invalid integer, please enter a number.")
 #prompts input for all links for linkscnt worth of links
