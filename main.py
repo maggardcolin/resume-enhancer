@@ -111,6 +111,10 @@ links = ""
 skills = ""
 objective = ""
 
+if os.name == 'nt':
+    os.system('cls')
+else:
+    os.system('clear')
 print("Welcome to Resume Creator!")
 
 #personal info at the top of resume

@@ -28,33 +28,35 @@ def scoreResume(file_path, my_resume):
             key_count += 1
             matched_words.append(keyword)
         for activity in activities:
-            if keyword in activity.get_description():
+            for line in activity.description:
+                if keyword in line:
+                    if printStatements:
+                        print(keyword + " matched!")
+                    key_count += 1
+                    matched_words.append(keyword)
+            if keyword in activity.role_title:
                 if printStatements:
                     print(keyword + " matched!")
                 key_count += 1
                 matched_words.append(keyword)
-            if keyword in activity.get_role():
-                if printStatements:
-                    print(keyword + " matched!")
-                key_count += 1
-                matched_words.append(keyword)
-            if keyword in activity.get_organization():
+            if keyword in activity.organization:
                 if printStatements:
                     print(keyword + " matched!")
                 key_count += 1
                 matched_words.append(keyword)
         for experience in experiences:
-            if keyword in experience.get_description():
+            for line in experience.description:
+                if keyword in line:
+                    if printStatements:
+                        print(keyword + " matched!")
+                    key_count += 1
+                    matched_words.append(keyword)
+            if keyword in experience.role_title:
                 if printStatements:
                     print(keyword + " matched!")
                 key_count += 1
                 matched_words.append(keyword)
-            if keyword in experience.get_role():
-                if printStatements:
-                    print(keyword + " matched!")
-                key_count += 1
-                matched_words.append(keyword)
-            if keyword in experience.get_company():
+            if keyword in experience.company:
                 if printStatements:
                     print(keyword + " matched!")
                 key_count += 1
@@ -65,11 +67,7 @@ def scoreResume(file_path, my_resume):
                     print(keyword + " matched!")
                 key_count += 1
                 matched_words.append(keyword)
-            if keyword in activity.languages:
-                if printStatements:
-                    print(keyword + " matched!")
-                key_count += 1
-                matched_words.append(keyword)
+            
     print("\n" + str(key_count) + " matches found. Let's shoot for more!")
     print("Here are the top 10 matched words for job descriptions matching your query: ")
     printed_keywords = 0  # Counter for printed keywords
