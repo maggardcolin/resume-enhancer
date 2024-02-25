@@ -2,6 +2,7 @@
 
 import pandas as pd
 from ResumeObjects import *
+import os
 
 def scoreResume(file_path, my_resume):
     key_count = 0
@@ -67,7 +68,11 @@ def scoreResume(file_path, my_resume):
                     print(keyword + " matched!")
                 key_count += 1
                 matched_words.append(keyword)
-            
+    
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
     print("\n" + str(key_count) + " matches found. Let's shoot for more!")
     print("Here are the top 10 matched words for job descriptions matching your query: ")
     printed_keywords = 0  # Counter for printed keywords
@@ -83,3 +88,4 @@ def scoreResume(file_path, my_resume):
                 extra_space = ""
             print(str(printed_keywords + 1) + f"){extra_space} \"" + keyword + f"\" with {match_count} matches")
             printed_keywords += 1
+    print("Your resume has been created and is located in the \"output\" folder. Enjoy!")
