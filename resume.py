@@ -12,6 +12,7 @@ section_header_pt = Pt(16)
 section_space_pt = Pt(5)
 font = 'Calibri'
 
+
 # horizontal line function borrowed from stackoverflow https://stackoverflow.com/questions/39006878/python-docx-add-horizontal-line
 def insert_hr(paragraph):
     p = paragraph._p  # p is the <w:p> XML element
@@ -106,15 +107,16 @@ class Resume:
         contact.font.size = body_pt
         contactp.paragraph_format.space_after = section_space_pt
 
-        objective_paragraph = doc.add_paragraph()
-        objective = objective_paragraph.add_run("Objective")
-        format_run(objective, section_header_pt, bold=True)
-        objective_paragraph.paragraph_format.space_after = Pt(0)
+        if len(self.objective) != 0:
+            objective_paragraph = doc.add_paragraph()
+            objective = objective_paragraph.add_run("Objective")
+            format_run(objective, section_header_pt, bold=True)
+            objective_paragraph.paragraph_format.space_after = Pt(0)
 
-        objective_description_paragraph = doc.add_paragraph()
-        objective_description = objective_description_paragraph.add_run(self.objective)
-        objective_description_paragraph.paragraph_format.space_after = section_space_pt
-        format_run(objective_description, body_pt)
+            objective_description_paragraph = doc.add_paragraph()
+            objective_description = objective_description_paragraph.add_run(self.objective)
+            objective_description_paragraph.paragraph_format.space_after = section_space_pt
+            format_run(objective_description, body_pt)
 
         if len(self.educations) != 0:
             education_header_paragraph = doc.add_paragraph()
