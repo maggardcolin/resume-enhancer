@@ -1,6 +1,6 @@
 # author: Atiksh Shah, Colin Maggard
 
-import subprocess, sys
+import subprocess, sys, os
 from scrapeIndeed import *
 from resume import Resume
 
@@ -51,6 +51,10 @@ def display_menu():
         display_menu()
     elif command == 6:
         my_resume.compile_resume()
+        if os.name == 'nt':
+            os.system('cls')
+        else:
+            os.system('clear')
     elif command == 7:
         print("Thank you for using the resume builder.")
     else:

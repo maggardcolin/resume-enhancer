@@ -55,15 +55,23 @@ def outputJSON(indeed_posts, driver, category):
 # this is called by main file
 def searchJobs(job_title: str):    
 
-    print("Now searching for jobs matching \"" + job_title + "\". Please wait.")
+    print("Now scanning job descriptions matching \"" + job_title + "\". Please wait, this may take ~30 seconds or longer.")
 
     # TODO make work with headless, currently times out when you try to do that
-    headless = False
+    headless = True
 
     if headless:
         chrome_options = Options()
         chrome_options.add_argument("--headless")
-        driver = webdriver.Chrome(options=chrome_options)
+        # to make sure it is allowed to run headless
+        chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3')
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--disable-extensions')
+        chrome_options.add_argument('--disable-logging')
+        chrome_options.add_argument('--log-level=3')
+        # suppresses DevTools message
+        chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        driver = webdriver.Chrome(options = chrome_options)
     else:
         driver = webdriver.Chrome()
 
