@@ -1,7 +1,3 @@
-# display
-
-# author: Colin Maggard
-
 import pygame, sys
 
 # Define some colors
@@ -28,12 +24,13 @@ activity = "Menu"
 selection = 0
 infoprompts = ["Please enter your full name:", "Please enter your city:",
                "Please enter your state abbreviation (e.g. WI):",
-               "Please enter your email:","Please enter your phone number"]
+               "Please enter your email:", "Please enter your phone number"]
 infoanswers = []
 gatherLinks = False
-links = ""
-linkprompts = ["How many links would you like to include any links in your resume header?", "Please enter an integer."]
-link_index = 1
+links = []
+linkprompts = ["How many links would you like to include in your resume header? (Enter an integer)"]
+link_index = 0
+linkCount = 0
 objective_statement = ""
 i = 0
 inputstring = ""
@@ -68,7 +65,7 @@ while gamerun:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        
+
         if activity == "Menu":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
@@ -94,9 +91,10 @@ while gamerun:
                     character_amount = 0
                     i += 1
                     if i >= len(infoprompts):
-                        activity = "Menu"
-                    else:
                         activity = "LinkMenu"
+                        i = 0
+                    else:
+                        activity = "Information"
                 elif character_amount < 24 and event.unicode.isprintable():
                     inputstring += event.unicode
                     character_amount += 1
@@ -107,40 +105,51 @@ while gamerun:
                     inputstring = inputstring[:-1]
                     character_amount -= 1
                 elif event.key == pygame.K_RETURN:
-                    # count number of links
-                    if (not int(inputstring)):
-                        i = 1
-                        break
-                    if int(inputstring) > 0:
-                       gatherLinks == True
-                       linkCount = inputstring
-                       activity = "GatherLinks"
+                    if inputstring.isdigit():
+                        linkCount = int(inputstring)
+                        if linkCount > 0:
+                            gatherLinks = True
+                            activity = "GatherLinks"
+                            inputstring = ""
+                            character_amount = 0
+                        else:
+                            activity = "ObjectiveMenu"
                     else:
+                        print("Please enter a valid integer.")
+                elif character_amount < 24 and event.unicode.isprintable():
+                    inputstring += event.unicode
+                    character_amount += 1
+
+        elif activity == "GatherLinks":
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE and character_amount > 0:
+                    inputstring = inputstring[:-1]
+                    character_amount -= 1
+                elif event.key == pygame.K_RETURN:
+                    links.append(inputstring)
+                    inputstring = "" 
+                    character_amount = 0
+                    link_index += 1
+                    if link_index >= linkCount:
                         activity = "ObjectiveMenu"
                 elif character_amount < 24 and event.unicode.isprintable():
                     inputstring += event.unicode
                     character_amount += 1
-        
-        elif activity == "GatherLinks":
-            while (link_index < linkCount)
-                links = links + link
-                if (i != linkscnt):
-                    links += ","
 
         elif activity == "ObjectiveMenu":
             pass
-
+        
         elif activity == "GatherObjective":
             pass
 
     if activity == "Menu":
         render_menu(selection)
-    elif activity == "Information" and i < len(infoprompts):
+    elif activity == "Information":
         render_information(infoprompts[i], inputstring, character_amount)
     elif activity == "LinkMenu":
-        render_information(linkprompts[i], inputstring, character_amount)
+        render_information(linkprompts[0], inputstring, character_amount)
     elif activity == "GatherLinks":
-        render_information("Please provide link #{link_index}: ", inputstring, character_amount)
+        render_information(f"Please provide link #{link_index+1}: ", inputstring, character_amount)
 
     pygame.display.update()
     clock.tick(60)
