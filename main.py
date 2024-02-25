@@ -104,7 +104,7 @@ def add_proj():
 
 # add skills
 def add_skill():
-    skills = input("Please enter your skills, separated by commas (e.g 'Python,Java,React'): ")
+    skills = input("Please enter your skills, separated by commas (e.g 'Python, Java, React'): ")
     my_resume.add_skills(skills)
 
 # global vars
@@ -120,7 +120,7 @@ name = input("Please enter your full name: ")
 # prompts input for city
 city = input("Please enter your city: ")
 # prompts input for state
-state = input("Please enter your state: ")
+state = input("Please enter your state abbreviation (e.g. WI): ")
 # prompts input for email
 email = input("Please enter your email: ")
 # prompts input for number
