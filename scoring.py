@@ -77,5 +77,9 @@ def scoreResume(file_path, my_resume):
         keyword = word_list[i][0]
         if keyword not in matched_words:
             match_count = word_list[i][1]
-            print(str(printed_keywords + 1) + ") \"" + keyword + f"\" with {match_count} matches")
+            if (printed_keywords + 1 < 10):
+                extra_space = " "
+            else:
+                extra_space = ""
+            print(str(printed_keywords + 1) + f"){extra_space} \"" + keyword + f"\" with {match_count} matches")
             printed_keywords += 1

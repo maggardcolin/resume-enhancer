@@ -1,10 +1,6 @@
 # author: Atiksh Shah, Colin Maggard
 
 import subprocess, sys, os
-from scrapeIndeed import searchJobs
-from resume import Resume
-from scoring import scoreResume
-
 # install needed modules
 try:
     import selenium
@@ -24,6 +20,9 @@ except ImportError:
     print("'nltk' is not installed. Please wait while it is installed...")
     subprocess.check_call([sys.executable, "-m", "pip", "install", "python-docx"])
     import docx
+from scrapeIndeed import searchJobs
+from resume import Resume
+from scoring import scoreResume
 
 # displays the menu
 def display_menu():
