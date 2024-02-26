@@ -30,6 +30,7 @@ def process_data(file_path, category):
         if processed_text:
             if not any(banned_word in processed_text for banned_word in banned_words):
                 accepted_words.append({"text": processed_text, "value": data[field]})
+        print_progress_bar(wordsCompleted, len(data), prefix = 'Progress:', suffix = 'Complete', length = 50)
         wordsCompleted += 1        
 
     # get current time and add to json file name
