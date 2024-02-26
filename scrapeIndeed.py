@@ -15,10 +15,14 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from datetime import datetime
 from parseJSON import *
+from dataWrangler import print_progress_bar
 
 # outputs to json and calls process_json in the parseJSON script
 def outputJSON(indeed_posts, driver, category):
     output = []
+    postsCompleted = 1
+
+    print("\nNow scanning job descriptions matching \"" + category + "\". Please wait, this may take a while...")
 
     # iterate through each post and check their full page
     for post in indeed_posts:
@@ -44,6 +48,8 @@ def outputJSON(indeed_posts, driver, category):
             pass
 
         output.append({'job_title': job_title, 'description': description})
+        print_progress_bar(postsCompleted, len(indeed_posts), prefix = 'Progress:', suffix = 'Complete', length = 50)
+        postsCompleted += 1
 
     # get current time and add to json file, this will be deleted later and is intermediary
     now = datetime.now()
@@ -55,8 +61,6 @@ def outputJSON(indeed_posts, driver, category):
 
 # this is called by main file
 def searchJobs(job_title: str):    
-
-    print("Now scanning job descriptions matching \"" + job_title + "\". Please wait, this may take ~30 seconds or longer.")
 
     # TODO make work with headless, currently times out when you try to do that
     headless = True
@@ -81,11 +85,18 @@ def searchJobs(job_title: str):
     driver.get(f"https://www.indeed.com/jobs?q={job_title}&l=")
     wait = WebDriverWait(driver, 10)
 
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
+    print("Now scanning for jobs matching \"" + job_title + "\"...")
+
     try:
         wait.until(EC.visibility_of_element_located((By.ID, 'mosaic-provider-jobcards')))
         job_cards = driver.find_elements(By.CLASS_NAME, 'css-5lfssm')
         
         indeed_posts = []
+        postsCompleted = 1
         for card in job_cards:
 
             # Extracting job title, company name, and link to the job posting
@@ -99,6 +110,9 @@ def searchJobs(job_title: str):
                 pass
             
             indeed_posts.append({'job_title': job_title_element, 'link': link})
+            print_progress_bar(postsCompleted, len(job_cards), prefix = 'Progress:', suffix = 'Complete', length = 50)
+            postsCompleted += 1
+
         
         the_final_file = outputJSON(indeed_posts, driver, job_title)
     except TimeoutException:
