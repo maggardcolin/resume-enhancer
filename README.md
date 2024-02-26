@@ -22,3 +22,4 @@
 - Review Results: Analyze the score and feedback provided by the tool to make necessary improvements to your resume.
 
 #### 1368 lines of code written in 24 hours - roughly 1 line per minute (0.95/min)
+For More, check out https://devpost.com/software/resume-enhancer-7kmz4d
